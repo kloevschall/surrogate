@@ -156,7 +156,8 @@ function perform_action() {
   fi
 
   echo "setting file permissions..."
-  chmod 700 -R $mysql_data_path/ && chown mysql:mysql -R $mysql_data_path/
+  find $mysql_data_path -type d -exec chmod 0700 {} +
+  find $mysql_data_path -type f -exec chmod 0660 {} +
 
   rm -R $active_backup/*
   rmdir $active_backup
