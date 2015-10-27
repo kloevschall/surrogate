@@ -159,6 +159,8 @@ function perform_action() {
   find $mysql_data_path -type d -exec chmod 0700 {} +
   find $mysql_data_path -type f -exec chmod 0660 {} +
 
+  chmod 755 $mysql_data_path/
+
   rm -R $active_backup/*
   rmdir $active_backup
 
