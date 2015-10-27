@@ -1,3 +1,25 @@
+### Notes regarding this fork (kloevschall/surrogate)
+
+- Has been tested on CentOS 7.1
+- MariaDB 10.1 from the official MariaDB YUM repository
+- innobackupex and xtrabackup version 2.3.2 from the official Percona-Release YUM repository
+  - `exclude = Percona-Server*` was added to the percona-release.repo so that the system provided mysql libs was not replaced by Percona mysql libs (creating havoc)
+- qpress version 1.1 from the Percona-Release YUM repository
+
+qpress needs to be installed via yum and not via the installer script.
+
+I do not store mysql database and backup within the same directory! So to the prompt for "Directory to store data" I point it to the location of my backup directory. Then set `mysql_data_path` and `mysql_log_path` from within `surrogate.conf`. The location of `mysql_socket` does not match CentOS so it needs to be edited. Keep the default installation paths for config, libs, and surrogate logs to be on the safe side.
+
+In this version `mysql_data_path` and `mysql_log_path` can be the same directory.
+
+Creation of the crontab file is not working... Add it yourself with e.g. `crontab -e`:
+
+ `0 8 * * * /usr/local/bin/surrogate -b full`
+
+In the above environment full and incremental backup is working. Restoring a complete backup is working also.
+
+But, test it yourself. Especially also the restoring process to be on the safe side.
+
 ### Warning
 
 This project is no longer maintained actively. Use at your own risk. 
