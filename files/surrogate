@@ -2,6 +2,8 @@
 # surrogate
 # loren carvalho, 2012
 
+export LANG=en_US
+
 # explain the usage
 function usage() { 
 cat <<-EOF
