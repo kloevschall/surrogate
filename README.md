@@ -8,17 +8,17 @@
 
 qpress needs to be installed via yum and not via the installer script.
 
-I do not store mysql database and backup within the same directory! So to the prompt for "Directory to store data" I point it to the location of my backup directory. Then set `mysql_data_path` and `mysql_log_path` from within `surrogate.conf`. The location of `mysql_socket` does not match CentOS so it needs to be edited. Keep the default installation paths for config, libs, and surrogate logs to be on the safe side.
+I myself do not store the mysql database and backup within the same directory hierarchy! So during installation to the prompt for "Directory to store data" I point it to the location of my backup directory of choice. Then I set `mysql_data_path` and `mysql_log_path` from within `surrogate.conf` to the mysql data directory. The location of `mysql_socket` does not match that of CentOS 7 so it needs to be edited. Keep the default installation paths for config, libs, and surrogate logs to be on the safe side.
 
-In this version `mysql_data_path` and `mysql_log_path` can be the same directory.
+In this version `mysql_data_path` and `mysql_log_path` can be the same directory without causing trouble during restore.
 
-Creation of the crontab file is not working... Add it yourself with e.g. `crontab -e`:
+Creation of the crontab file is not working... Add it yourself with e.g. `crontab -e` and to your preferences:
 
  `0 8 * * * /usr/local/bin/surrogate -b full`
 
-In the above environment full and incremental backup is working. Restoring a complete backup is working also.
+In the above environment the full and incremental backup is working. Restoring a complete backup is also working.
 
-But, test it yourself. Especially also the restoring process to be on the safe side.
+But, test it yourself. Especially the restoring process to be on the safe side.
 
 ### Warning
 
