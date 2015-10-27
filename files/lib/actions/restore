@@ -146,13 +146,17 @@ function perform_action() {
   --defaults-group="mysqld$instance" \
   --copy-back $active_backup 2>> $logfile_r
 
-  echo "delete all log files to start fresh after restore"
-  rm -R $mysql_log_path/*
-  mkdir $mysql_log_path/bin
+  # Do not delete the log_path if it is identical to data_path
+  if [ ! "$mysql_log_path" == "$mysql_data_path" ]
+  then
+    echo "delete all log files to start fresh after restore"
+    rm -R $mysql_log_path/*
+    mkdir $mysql_log_path/bin
+	chmod 0700 -R $mysql_log_path/ && chown mysql:mysql -R $mysql_log_path/
+  fi
 
   echo "setting file permissions..."
   chmod 700 -R $mysql_data_path/ && chown mysql:mysql -R $mysql_data_path/
-  chmod 700 -R $mysql_log_path/ && chown mysql:mysql -R $mysql_log_path/
 
   rm -R $active_backup/*
   rmdir $active_backup
